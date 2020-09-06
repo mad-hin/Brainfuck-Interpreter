@@ -5,6 +5,8 @@
 #ifndef BF_INTERPRETER_INTERPRETER_H
 #define BF_INTERPRETER_INTERPRETER_H
 
+#include <iostream>
+
 class command {
 public:
     static void bf_input();
@@ -18,6 +20,10 @@ public:
     static void bf_left();
 
     static void bf_right();
+
+    static void getFile(FILE *source);
+
+    static void interpret(char *c);
 };
 
 #endif //BF_INTERPRETER_INTERPRETER_H

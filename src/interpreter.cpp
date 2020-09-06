@@ -5,8 +5,10 @@
 #include "interpreter.h"
 #include <iostream>
 
-char array[30000] = {0};
+char array[30000];
+char input[30000];
 char *ptr = array;
+char *in = input;
 
 void command::bf_input() {
     *ptr = getchar();
@@ -30,4 +32,40 @@ void command::bf_left() {
 
 void command::bf_right() {
     ++ptr;
+}
+
+void command::getFile(FILE *source) {
+    char b;
+    while ((b = getc(source)) > 0) {
+        *in++ = b;
+    }
+    command::interpret(input);
+}
+
+void command::interpret(char *c) {
+    while (*c) {
+        switch (*c) {
+            case '+':
+                command::bf_add();
+                break;
+            case '-':
+                command::bf_min();
+                break;
+            case '>':
+                command::bf_right();
+                break;
+            case '<':
+                command::bf_left();
+                break;
+            case '.':
+                command::bf_print();
+                break;
+            case ',':
+                command::bf_input();
+                break;
+            default:
+                continue;
+        }
+        c++;
+    }
 }
