@@ -23,7 +23,7 @@ public:
 
     static void getFile(FILE *source);
 
-    static void interpret(char *c);
+    static void interpret();
 };
 
 #endif //BF_INTERPRETER_INTERPRETER_H

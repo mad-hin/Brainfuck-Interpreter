@@ -5,10 +5,11 @@
 #include "interpreter.h"
 #include <iostream>
 
-char array[30000];
+char array[30000]{0};
 char input[30000];
 char *ptr = array;
 char *in = input;
+int loop;
 
 void command::bf_input() {
     *ptr = getchar();
@@ -39,12 +40,12 @@ void command::getFile(FILE *source) {
     while ((b = getc(source)) > 0) {
         *in++ = b;
     }
-    command::interpret(input);
+    command::interpret();
 }
 
-void command::interpret(char *c) {
-    while (*c) {
-        switch (*c) {
+void command::interpret() {
+    for (int i = 0; input[i] != 0; i++) {
+        switch (input[i]) {
             case '+':
                 command::bf_add();
                 break;
@@ -63,9 +64,24 @@ void command::interpret(char *c) {
             case ',':
                 command::bf_input();
                 break;
+            case '[':
+                continue;
+            case ']':
+                if (*ptr) {
+                    loop = 1;
+                    char current;
+                    while (loop > 0) {
+                        current = input[--i];
+                        if (current == '[') {
+                            loop--;
+                        } else if (current == ']') {
+                            loop++;
+                        }
+                    }
+                }
+                break;
             default:
                 continue;
         }
-        c++;
     }
 }
