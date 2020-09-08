@@ -9,7 +9,7 @@ char array[30000]{0};
 char input[30000];
 char *ptr = array;
 char *in = input;
-int loop;
+int unclosedBracket = 0;
 
 void command::bf_input() {
     *ptr = getchar();
@@ -65,17 +65,37 @@ void command::interpret() {
                 command::bf_input();
                 break;
             case '[':
-                continue;
+                if(*ptr == 0){
+                    unclosedBracket++;
+                    while (input[i] != ']' || unclosedBracket != 0)
+                    {
+                        i++;
+
+                        if (input[i] == '[')
+                        {
+                            unclosedBracket++;
+                        }
+                        else if (input[i] == ']')
+                        {
+                            unclosedBracket--;
+                        }
+                    }
+                }
+                break;
             case ']':
                 if (*ptr) {
-                    loop = 1;
-                    char current;
-                    while (loop > 0) {
-                        current = input[--i];
-                        if (current == '[') {
-                            loop--;
-                        } else if (current == ']') {
-                            loop++;
+                    unclosedBracket++;
+                    while (input[i] != '[' || unclosedBracket != 0)
+                    {
+                        i--;
+
+                        if (input[i] == ']')
+                        {
+                            unclosedBracket++;
+                        }
+                        else if (input[i] == '[')
+                        {
+                            unclosedBracket--;
                         }
                     }
                 }
