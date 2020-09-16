@@ -1,11 +1,12 @@
 # Abstract
-This project is a brainfuck interpreter written in C++
+This project is a simple brainfuck interpreter written in C++
 ## Requirements
 - C++ compiler
-- cmake
-- make (I am not sure if it is necessary)
+- CMake
+- GNU Make
 ## Run
-1. Type `cmake .` to generate the makefile
+1. Type `cmake .` to generate the makefile\
+(Note: If your cmake does not meet the minimum required version, just change it from the `CMakeLists.txt`)
 2. Type `make` to compile it
 3. Type `./brainfuck <File with brainfuck code>` to run your brainfuck code
 ## Help Request
